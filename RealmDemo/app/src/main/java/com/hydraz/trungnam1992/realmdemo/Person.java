@@ -18,9 +18,7 @@ public class Person extends RealmObject {
 
     public Dog dogs;
 
-//    public RealmList<Dog> getAllDogs(){
-//        return dogs;
-//    };
+
 
 
 

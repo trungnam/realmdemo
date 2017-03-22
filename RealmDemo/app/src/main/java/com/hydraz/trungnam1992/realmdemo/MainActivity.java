@@ -12,6 +12,12 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hugo.weaving.DebugLog;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmConfiguration;
@@ -87,32 +93,62 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+    @DebugLog
     @OnClick(R.id.btn_add_person)
     public void addPerson(){
         final Person person  = new Person();
         person.name= editTextPersonName.getText().toString();
 
         person.dogs= listdog.get(spinnerSelectDog.getSelectedItemPosition());
+        //rx
+        Observable.just(editTextPersonName.getText().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                try {
-                    realm.copyToRealm(person);
-                    Toast.makeText(getApplicationContext(),"Success: "+ person.name , Toast.LENGTH_SHORT).show();
+                    }
 
-                }catch (RealmException e){
-                    Toast.makeText(getApplicationContext(),"Fail: "+ person.name , Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onNext(String value) {
+                        if(!value.equals("") ){
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm) {
+                                    try {
+                                        realm.copyToRealm(person);
+                                        Toast.makeText(getApplicationContext(),"Success: "+ person.name , Toast.LENGTH_SHORT).show();
 
-                }
-            }
-        });
+                                    }catch (RealmException e){
+                                        Toast.makeText(getApplicationContext(),"Fail: "+ person.name , Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            });
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Person name is empty " , Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+
 
 
 
     }
-
+    @DebugLog
     @OnClick(R.id.btn_add_dog)
     public void addDog(){
 
@@ -120,21 +156,45 @@ public class MainActivity extends AppCompatActivity {
         dog.color = editTextDogColor.getText().toString();
         dog.name = editTextDogName.getText().toString();
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm)  {
-                try {
-                    realm.copyToRealm(dog);
-                    Toast.makeText(getApplicationContext(),"Success: "+ dog.name , Toast.LENGTH_SHORT).show();
-                }catch (Exception e){
-                    Toast.makeText(getApplicationContext(),"Fail: "+ dog.name , Toast.LENGTH_SHORT).show();
+        Observable.just(editTextDogName.getText().toString())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<String>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                }
+                    }
+                    @Override
+                    public void onNext(String value) {
+                        if(!value.equals("")){
+                            realm.executeTransaction(new Realm.Transaction() {
+                                @Override
+                                public void execute(Realm realm)  {
+                                    try {
+                                        realm.copyToRealm(dog);
+                                        Toast.makeText(getApplicationContext(),"Success: "+ dog.name , Toast.LENGTH_SHORT).show();
+                                    }catch (Exception e){
+                                        Toast.makeText(getApplicationContext(),"Fail: "+ dog.name , Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                                    }
 
-        initSpinner();
+                                }
+                            });
+                        }else {
+                            Toast.makeText(getApplicationContext(),"Fail dog name empty" , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        initSpinner();
+                    }
+                });
 
     }
 

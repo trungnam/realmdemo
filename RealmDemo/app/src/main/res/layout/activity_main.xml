@@ -52,9 +52,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
             android:padding="5dp"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@color/colorPrimaryDark"
+            android:layout_height="5dp" />
 
         <Button
             android:layout_width="wrap_content"
@@ -81,13 +81,14 @@
             />
         <android.support.design.widget.TextInputEditText
             android:hint="dog color"
+            android:visibility="gone"
             android:id="@+id/edit_dog_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="5dp"
             android:padding="15dp"
             android:background="@color/colorPrimaryDark"/>
 

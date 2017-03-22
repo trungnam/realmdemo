@@ -8,28 +8,46 @@
     android:paddingTop="10dp"
     android:layout_height="wrap_content">
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="2dp"
-    android:paddingLeft="10dp"
-        >
-    <TextView
-        android:text="USEr"
-        android:textColor="@android:color/black"
-        android:id="@+id/txt_person_name"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"/>
-    <TextView
-        android:text="dog"
-        android:id="@+id/txt_dogs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="18sp"/>
+        android:layout_height="match_parent"
+        android:padding="2dp"
+        android:paddingLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="92dp"
+        android:layout_marginEnd="92dp">
+        <TextView
+            android:text="USEr"
+            android:textColor="@android:color/black"
+            android:id="@+id/txt_person_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"/>
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingLeft="20dp"
+                android:layout_alignParentLeft="true"
+                android:text="dog"
+                android:id="@+id/txt_dogs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textSize="18sp"/>
+            <Button
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="delete"
+                android:id="@+id/btndelete"
+                />
+        </RelativeLayout>
 
-</LinearLayout>
+    </LinearLayout>
 
-    </RelativeLayout>
+</RelativeLayout>
