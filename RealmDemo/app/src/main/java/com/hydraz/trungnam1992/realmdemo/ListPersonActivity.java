@@ -114,7 +114,7 @@ public class ListPersonActivity extends AppCompatActivity {
                 viewHolder.mDog.setText("Dog: " + person.dogs.name);
 
             }else {
-                viewHolder.mDog.setText("NULL");
+                viewHolder.mDog.setText("Dog: NULL");
 
             }
 
